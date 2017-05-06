@@ -4,14 +4,20 @@ package com.water.xiaoshuweather;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.water.xiaoshuweather.util.LogUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private DrawerLayout drawerLayout;
+    private ImageView imageView;
 
     private Fragment weatherfragment;
     private Fragment picturefragment;
@@ -28,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        imageView = (ImageView) findViewById(R.id.title_nav);
         initView();
         setChoiceItem(0);
     }
@@ -40,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         WeatherTab.setOnClickListener(MainActivity.this);
         PictureTab.setOnClickListener(MainActivity.this);
         InfoTab.setOnClickListener(MainActivity.this);
+        imageView.setOnClickListener(MainActivity.this);
     }
 
     @Override
@@ -56,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.info_tab:
                 LogUtil.d("MainActivity", "点了第三个");
                 setChoiceItem(2);
+                break;
+            case R.id.title_nav:
+                drawerLayout.openDrawer(GravityCompat.START);
                 break;
             default:
                 break;
