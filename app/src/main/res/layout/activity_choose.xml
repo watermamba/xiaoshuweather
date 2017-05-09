@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/background_choose">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/cancel" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="75dp"
+            android:gravity="end"
+            android:text="@string/slogan"
+            android:textColor="#fff"
+            android:textSize="25sp" />
+
+        <RelativeLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="110dp">
+
+            <Button
+                android:id="@+id/edit_city"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="@drawable/search_bg"
+                android:gravity="center"
+                android:hint="搜索中国城市" />
+
+            <Button
+                android:id="@+id/search"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/edit_city"
+                android:layout_toRightOf="@id/edit_city"
+                android:background="@drawable/search_icon" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/city"
+            android:textSize="12sp"
+            />
+
+        <Button
+            android:id="@+id/shanghai"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="上海市"
+            />
+
+        <Button
+            android:id="@+id/haidian"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="海淀区"
+            />
+
+        <Button
+            android:id="@+id/beijing"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="北京市"
+            />
+        <Button
+            android:id="@+id/guangzhou"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="95dp"
+            android:layout_centerHorizontal="true"
+            android:text="广州市"
+            />
+        <Button
+            android:id="@+id/shenzhen"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="95dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="深圳市"
+            />
+        <Button
+            android:id="@+id/tianjin"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="95dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:text="天津市"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

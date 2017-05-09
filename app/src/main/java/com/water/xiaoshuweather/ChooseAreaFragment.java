@@ -1,6 +1,7 @@
 package com.water.xiaoshuweather;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
@@ -61,26 +62,37 @@ public class ChooseAreaFragment extends Fragment {
                     HttpUtil.sendOkhttpRequest(address, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            Looper.prepare();
-                            Toast.makeText(getActivity(), "加载失败,情稍后再试", Toast.LENGTH_SHORT).show();
-                            Looper.loop();
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    closeProgressDialog();
+                                    Toast.makeText(getActivity(), "加载失败，请稍后再试", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String responseText = response.body().string();
                             boolean result = Utility.handleCityData(responseText);
-                            closeProgressDialog();
-                            Looper.prepare();
                             if (result) {
-                                Toast.makeText(getActivity(), "获取数据成功", Toast.LENGTH_SHORT).show();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        closeProgressDialog();
+                                        Intent intent = new Intent(getActivity(), SelectAreaActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
                             } else {
+                                Looper.prepare();
                                 Toast.makeText(getActivity(), "获取数据失败，请检查网络", Toast.LENGTH_SHORT).show();
+                                Looper.loop();
                             }
-                            Looper.loop();
                         }
                     });
                 }else {
-                    Toast.makeText(getActivity(), "已有数据", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), SelectAreaActivity.class);
+                    startActivity(intent);
                 }
 
             }
