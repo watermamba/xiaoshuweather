@@ -6,8 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="100dp"
         android:background="@drawable/background_choose_2"
         >
 
@@ -41,16 +40,10 @@
             />
 
     </RelativeLayout>
-    <LinearLayout
+    <ListView
+        android:id="@+id/city_listview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        >
-        <ListView
-            android:id="@+id/city_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />
 
-    </LinearLayout>
 
 </LinearLayout>

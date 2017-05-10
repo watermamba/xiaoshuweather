@@ -33,7 +33,7 @@ public class SearchCity extends AppCompatActivity {
         editCity = (EditText) findViewById(R.id.edit_city_2);
         cityList = (ListView) findViewById(R.id.city_listview);
         cancel = (TextView) findViewById(R.id.cancel_edit);
-        adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, datalist);
+        adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.list_item_1, datalist);
         cityList.setAdapter(adapter);
         editCity.addTextChangedListener(new TextWatcher() {
             @Override
@@ -53,7 +53,7 @@ public class SearchCity extends AppCompatActivity {
                 if (cities.size() > 0) {
                     datalist.clear();
                     for (ChinaCity chinaCity : cities) {
-                        datalist.add(chinaCity.getCityZh() + "," + chinaCity.getLeaderZh() + "," + chinaCity.getProvinceZh() + "," + chinaCity.getCountryZh());
+                        datalist.add(chinaCity.getCityZh()  + "," + chinaCity.getProvinceZh() + "," + chinaCity.getCountryZh());
                     }
                     adapter.notifyDataSetChanged();
                     cityList.setSelection(0);
