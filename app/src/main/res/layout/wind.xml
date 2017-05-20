@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="15dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/humidity_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/humidity"
+        />
+
+    <TextView
+        android:id="@+id/humidity_text"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_toRightOf="@id/humidity_view"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:text="16%"
+        />
+    <ImageView
+        android:id="@+id/wind_view"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="60dp"
+        android:src="@drawable/wind"
+        />
+    <TextView
+        android:id="@+id/wind_text"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:layout_toRightOf="@id/wind_view"
+        android:text="微风"
+        />
+
+
+    <TextView
+        android:id="@+id/aqi_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="125"
+        android:textColor="#fff"
+        android:layout_marginRight="85dp"
+        android:textSize="30sp"
+        android:gravity="top"
+        />
+
+    <TextView
+        android:id="@+id/pm25_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:gravity="top"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        android:text="46"
+        />
+
+</RelativeLayout>

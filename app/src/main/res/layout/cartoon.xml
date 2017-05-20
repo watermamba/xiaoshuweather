@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/mickey"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_margin="10dp"
+        android:id="@+id/suggestion"
+        android:layout_width="200dp"
+        android:layout_toRightOf="@id/imageView"
+        android:layout_height="match_parent"
+        android:text="&#160;&#160;&#8201;白天天气晴好，同时较大的空气湿度，会使您在午后略感闷热，但早晚仍很凉爽、舒适。"
+        android:gravity="left|center_vertical"
+        android:textColor="#fff"
+        />
+
+
+</RelativeLayout>

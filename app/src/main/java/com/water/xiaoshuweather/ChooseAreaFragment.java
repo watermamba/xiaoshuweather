@@ -8,16 +8,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.water.xiaoshuweather.adapter.CityAdapter;
 import com.water.xiaoshuweather.db.ChinaCity;
+import com.water.xiaoshuweather.entity.City;
 import com.water.xiaoshuweather.util.HttpUtil;
 import com.water.xiaoshuweather.util.Utility;
 
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
@@ -34,6 +38,7 @@ public class ChooseAreaFragment extends Fragment {
 
     private TextView edit_city;
     private TextView add_city;
+    public static List<City> cityList = new ArrayList<>();
 
     private ProgressDialog progressDialog;
 
@@ -43,7 +48,15 @@ public class ChooseAreaFragment extends Fragment {
         View view = inflater.inflate(R.layout.choose_area, container, false);
         edit_city = (TextView) view.findViewById(R.id.edit);
         add_city = (TextView) view.findViewById(R.id.add);
+        addCities(new City( "上海", R.drawable.tab_picture, "10℃/20℃"));
+        CityAdapter adapter = new CityAdapter(getContext(), R.layout.city_item, cityList);
+        ListView listView = (ListView) view.findViewById(R.id.city_list);
+        listView.setAdapter(adapter);
         return view;
+    }
+
+    public static void addCities(City city) {
+        cityList.add(city);
     }
 
     @Override
