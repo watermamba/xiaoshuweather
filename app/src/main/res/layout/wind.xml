@@ -19,7 +19,6 @@
         android:layout_toRightOf="@id/humidity_view"
         android:gravity="center"
         android:textColor="#fff"
-        android:text="16%"
         />
     <ImageView
         android:id="@+id/wind_view"
@@ -35,7 +34,6 @@
         android:textColor="#fff"
         android:gravity="center"
         android:layout_toRightOf="@id/wind_view"
-        android:text="微风"
         />
 
 
@@ -44,7 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="125"
         android:textColor="#fff"
         android:layout_marginRight="85dp"
         android:textSize="30sp"
@@ -60,7 +57,6 @@
         android:gravity="top"
         android:textColor="#fff"
         android:textSize="30sp"
-        android:text="46"
         />
 
 </RelativeLayout>

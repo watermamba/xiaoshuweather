@@ -3,7 +3,9 @@ package com.water.xiaoshuweather.util;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.water.xiaoshuweather.db.ChinaCity;
+import com.water.xiaoshuweather.json.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,4 +47,20 @@ public class Utility {
         }
         return false;
     }
+
+    /**
+     * 处理返回的天气数据
+     */
+    public static Weather handleWeatherResponse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather5");
+            String content = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(content, Weather.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
