@@ -22,6 +22,7 @@ import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.zip.Inflater;
 
@@ -38,6 +39,7 @@ public class ChooseAreaFragment extends Fragment {
 
     private TextView edit_city;
     private TextView add_city;
+    public static HashSet<String> cityName = new HashSet<>();
     public static List<City> cityList = new ArrayList<>();
 
     private ProgressDialog progressDialog;
@@ -57,6 +59,10 @@ public class ChooseAreaFragment extends Fragment {
 
     public static void addCities(City city) {
         cityList.add(city);
+    }
+
+    public static void addCityName(String city) {
+        cityName.add(city);
     }
 
     @Override

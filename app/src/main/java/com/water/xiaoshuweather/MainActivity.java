@@ -29,6 +29,7 @@ import com.water.xiaoshuweather.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -115,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceiveLocation(BDLocation location) {
             locCity = location.getCity();
+            Log.d("MainActivity", "百度返回的城市是：" + locCity);
+            ChooseAreaFragment.addCityName(locCity.substring(0, locCity.length() - 1));
+
             setChoiceItem(0);
         }
 

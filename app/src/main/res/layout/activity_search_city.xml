@@ -26,6 +26,8 @@
             android:background="@drawable/search_bg"
             android:gravity="left|center_vertical"
             android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:maxLength="12"
             android:hint="搜索中国城市" />
         <TextView
             android:id="@+id/cancel_edit"

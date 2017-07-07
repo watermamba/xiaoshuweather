@@ -7,8 +7,8 @@
 
     <ImageButton
         android:id="@+id/title_nav"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
         android:background="@drawable/plus"
@@ -27,7 +27,7 @@
         android:id="@+id/upload"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:background="@drawable/upload"
+        android:background="@drawable/setting"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"

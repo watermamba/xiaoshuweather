@@ -8,12 +8,20 @@ import android.media.Image;
 import android.os.Bundle;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -25,6 +33,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.bumptech.glide.Glide;
+import com.water.xiaoshuweather.entity.City;
 import com.water.xiaoshuweather.json.Forecast;
 import com.water.xiaoshuweather.json.Weather;
 import com.water.xiaoshuweather.util.HttpUtil;
@@ -45,6 +54,9 @@ import okhttp3.Response;
 
 public class WeatherFragment extends Fragment {
 
+    private String locCity;
+    public DrawerLayout drawerLayout;
+    public SwipeRefreshLayout swipeRefreshLayout;
     private TextView cityName;
     private ImageButton titleButton;
     private ImageButton uploadButton;
@@ -68,9 +80,16 @@ public class WeatherFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.page_wea_layout, container, false);
-        Log.e("MainActivity", "城市是"+MainActivity.locCity);
+        locCity = MainActivity.locCity.substring(0, MainActivity.locCity.length() - 1);
+        Log.e("MainActivity", "定位城市是"+locCity);
+        Object o[] = ChooseAreaFragment.cityName.toArray();
+        for (int i =0; i<o.length;i++) {
+            Log.e("MainActivity", "城市集合中有：" + o[i]);
+        }
+        titleButton = (ImageButton) view.findViewById(R.id.title_nav);
+        drawerLayout = (DrawerLayout) view.findViewById(R.id.drawer_layout);
         cityName = (TextView) view.findViewById(R.id.title_city);
-        cityName.setText(MainActivity.locCity);
+        cityName.setText(locCity);
         titleButton = (ImageButton) view.findViewById(R.id.title_nav);
         uploadButton = (ImageButton) view.findViewById(R.id.upload);
         degreeText = (TextView) view.findViewById(R.id.degree_text);
@@ -88,15 +107,37 @@ public class WeatherFragment extends Fragment {
         tomoTem = (TextView) view.findViewById(R.id.tomorrow_tem);
         tomoWea = (TextView) view.findViewById(R.id.tomorrow_weather);
         tomoImage = (ImageView) view.findViewById(R.id.tomorrow_image);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        titleButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(getContext(), uploadButton);
+                popup.getMenuInflater().inflate(R.menu.main, popup.getMenu());
+                popup.show();
+            }
+        });
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         String weatherString = prefs.getString("weather", null);
         if (weatherString != null) {
             Weather weather = Utility.handleWeatherResponse(weatherString);
             showWeatherInfo(weather);
         } else {
-            Log.e("Mainactivity", "something" + MainActivity.locCity.substring(0, MainActivity.locCity.length() - 1));
-            getWeather(MainActivity.locCity.substring(0,MainActivity.locCity.length()-1));
+            Log.e("Mainactivity", "此城市无缓存：" + locCity);
+            getWeather(locCity);
         }
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
+            @Override
+            public void onRefresh() {
+                getWeather(locCity);
+            }
+        });
         return view;
     }
 
@@ -114,6 +155,7 @@ public class WeatherFragment extends Fragment {
                 Looper.prepare();
                 Toast.makeText(getContext(), "请求失败", Toast.LENGTH_SHORT).show();
                 Looper.loop();
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -133,6 +175,7 @@ public class WeatherFragment extends Fragment {
                         } else {
                             Toast.makeText(getContext(), "获取天气失败", Toast.LENGTH_SHORT).show();
                         }
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
             }
@@ -147,18 +190,19 @@ public class WeatherFragment extends Fragment {
     private void showWeatherInfo(Weather weather) {
         degreeText.setText(weather.now.tmp+"°");
         weatherText.setText(weather.now.cond.txt);
-        humidityText.setText(weather.now.hum);
+        humidityText.setText(weather.now.hum+"%");
         windText.setText(weather.now.wind.sc + "级");
         aqiText.setText(weather.aqi.city.aqi);
         pm25Text.setText(weather.aqi.city.pm25);
-        suggestionText.setText(weather.suggestion.drsg.txt);
+        suggestionText.setText("    " + weather.suggestion.drsg.txt + "\n" + "    " + weather.suggestion.flu.txt + "\n" + "    "+ weather.suggestion.sport.txt);
         todayQly.setText(weather.aqi.city.qlty);
         todayTem.setText(weather.forecastList.get(0).tmp.min + "/" + weather.forecastList.get(0).tmp.max + "℃");
+        String cityTem = weather.forecastList.get(0).tmp.min + "/" + weather.forecastList.get(0).tmp.max + "℃";
         todayWea.setText(weather.forecastList.get(0).cond.txt_d);
         final String todayImageUrl = "https://cdn.heweather.com/cond_icon/" + weather.forecastList.get(0).cond.code_d + ".png";
         Glide.with(getContext()).load(todayImageUrl).into(todayImage);
         tomoQly.setText(weather.aqi.city.qlty);
-        tomoTem.setText(weather.forecastList.get(1).tmp.min + "/" + weather.forecastList.get(0).tmp.max + "℃");
+        tomoTem.setText(weather.forecastList.get(1).tmp.min + "/" + weather.forecastList.get(1).tmp.max + "℃");
         tomoWea.setText(weather.forecastList.get(1).cond.txt_d);
         final String tomoImageUrl = "https://cdn.heweather.com/cond_icon/" + weather.forecastList.get(1).cond.code_d + ".png";
         Glide.with(getContext()).load(tomoImageUrl).into(tomoImage);
